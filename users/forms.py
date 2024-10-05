@@ -23,6 +23,7 @@ class UserRegistrationForm(UserCreationForm):
         label='User Type',
         widget=forms.Select(attrs={'class': 'form-select'}),
         required=True,
+        help_text='Please select the type of user you are.'
     )
 
     class Meta:
@@ -60,11 +61,13 @@ class OTPVerificationForm(forms.Form):
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(
-        max_length=254,
-        widget=forms.TextInput(attrs={'placeholder': 'Email or Mobile'}),
-        label='Email or Mobile'
+        max_length=10,
+        widget=forms.TextInput(attrs={'placeholder': 'Enter your mobile number'}),
+        label='Mobile',
+        help_text='Please enter the mobile number you used to register.'
     )
     password = forms.CharField(
-        widget=forms.PasswordInput(attrs={'placeholder': 'Password'}),
-        label='Password'
+        widget=forms.PasswordInput(attrs={'placeholder': 'Enter your password'}),
+        label='Password',
+        help_text='Enter the password you created during registration.'
     )

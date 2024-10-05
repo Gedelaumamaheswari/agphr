@@ -1,5 +1,4 @@
 from django.db import models
-from django.urls import reverse
 from job.models import Skill
 from users.models import User
 from django.core.exceptions import ValidationError
@@ -52,7 +51,9 @@ class Applicant(models.Model):
         upload_to="resumes/%Y/%m/%d/",
         validators=[validate_file_size],
         help_text="Upload your resume in PDF or Word format.",
-        verbose_name="Resume"
+        verbose_name="Resume",
+        null=False,
+        blank=False
     )
     bio = models.TextField(
         blank=True,
@@ -117,27 +118,6 @@ class Applicant(models.Model):
         null=True,
         help_text="Select your highest level of education.",
         verbose_name="Your Highest Education"
-    )
-    city = models.CharField(
-        max_length=100,
-        blank=True,
-        null=True,
-        help_text="Your current city.",
-        verbose_name="City"
-    )
-    state = models.CharField(
-        max_length=100,
-        blank=True,
-        null=True,
-        help_text="Your current state.",
-        verbose_name="State"
-    )
-    country = models.CharField(
-        max_length=100,
-        blank=True,
-        null=True,
-        help_text="Your current country.",
-        verbose_name="Country"
     )
     is_available_for_work = models.BooleanField(
         default=True,

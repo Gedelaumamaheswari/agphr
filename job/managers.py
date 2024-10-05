@@ -42,7 +42,6 @@ class JobQuerySet(models.QuerySet):
                     (Q(reduce(operator.or_, (Q(job_title=option) for option in query)))) | \
                     (Q(reduce(operator.or_, (Q(skills__name=option) for option in query))))
             queryset = queryset.filter(query).order_by("-id")
-            print(len(queryset))
             return queryset
 
         queryset = queryset.filter(Q(job_title__icontains=query)|

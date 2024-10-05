@@ -3,9 +3,9 @@ from django.views import View
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.http import Http404
+from django.contrib.auth import authenticate, login
 from .models import User
-from django.contrib.auth.views import LoginView
-from .forms import UserRegistrationForm, OTPVerificationForm
+from .forms import UserRegistrationForm, OTPVerificationForm, LoginForm
 from .functions.otp_utils import (
     generate_otp, 
     send_otp_to_mobile, 
@@ -30,16 +30,28 @@ class RegisterView(View):
             mobile_number = form.cleaned_data.get('mobile')
             password = form.cleaned_data.get('password1')
             user_type = form.cleaned_data.get('user_type')
-            otp = generate_otp()
-            if mobile_number:
-                send_otp_to_mobile(mobile_number, otp)
-            elif email:
-                send_otp_to_email(email, otp)
+           
+            # TODO otp verification============================================================
+            # otp = generate_otp()
+            # if mobile_number:
+            #     send_otp_to_mobile(mobile_number, otp)
+            # elif email:
+            #     send_otp_to_email(email, otp)
             
-            set_registration_session(request, otp, mobile_number or email, user_type, password)
-            return redirect('users:otp_verification')
+            # set_registration_session(request, otp, mobile_number or email, user_type, password)
+            # return redirect('users:otp_verification')
+            # TODO remove this code 
+            user = User.objects.create_user(
+                    mobile=mobile_number,
+                    user_type=user_type
+                )
+            user.set_password(password)
+            user.save()
+            login(request, user, backend='users.backend.EmailOrMobileBackend')
+            messages.success(request, "You account is created and loggrd in successfully.")
+            return redirect('redirect_url')
+            # ==================================================================================
         else:
-            messages.warning(request, "Invalid form data")
             return render(request, self.template_name, {'form': form})
 
 class OTPVerificationView(View):
@@ -92,10 +104,26 @@ class OTPVerificationView(View):
             messages.warning(request, "Invalid OTP")
             return redirect('users:otp_verification')
 
-class LoginView(LoginView):
-    template_name = 'users/login.html'
-
-    def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
+def login_view(request):
+    if request.user.is_authenticated:
             raise Http404('you are already logged in !!!')
-        return super().dispatch(request, *args, **kwargs)
+    
+    if request.method == 'POST':
+        form = LoginForm(request, data=request.POST)
+        if form.is_valid():
+            mobile = form.cleaned_data.get('username')  # This will be the mobile
+            password = form.cleaned_data.get('password')
+            user = authenticate(request, username=mobile, password=password)
+            if user is not None:
+                login(request, user)
+                messages.success(request, f"Welcome, {user.get_username() if user.get_username() else user.mobile}!")
+                return redirect('redirect_url')
+            else:
+                messages.error(request, "Invalid mobile number or password")
+        else:
+            messages.error(request, "Invalid login details")
+            return render(request, 'users/login.html', {'form': form})
+    else:
+        form = LoginForm()
+
+    return render(request, 'users/login.html', {'form': form})

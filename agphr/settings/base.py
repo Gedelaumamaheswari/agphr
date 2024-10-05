@@ -42,7 +42,9 @@ DJANGO_APPS = [
 
 THIRD_PARTY_APPS = [
     'tinymce',
-    'hitcount'
+    'hitcount',
+    'crispy_forms',
+    'crispy_bootstrap5',
 ]
 
 LOCAL_APPS = [

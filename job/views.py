@@ -44,7 +44,7 @@ class HomeView(ListView):
 from django.template.loader import render_to_string
 class JobList(ListView):
     model = Job
-    template_name = 'home.html'
+    template_name = 'job/job_list.html'
     context_object_name = 'jobs'
     paginate_by = 10
     
@@ -117,10 +117,7 @@ class JobDetail(HitCountDetailView):
         skill=[skill.name for skill in self.object.skill_set.all()]
         object=self.object
         context['check_applied_condition'] = 1 in [job.is_applied for job in Job.objects.get(slug=slug).jobapplicant_set.all().filter(user=user)]
-        context['similar_jobs'] = cache.get('similar_jobs')
-        if context['similar_jobs'] is None:
-            context['similar_jobs'] = Job.objects.filter(country=object.country, place=object.place, skill__name__in=skill).distinct().exclude(slug=slug)
-            cache.set('similar_jobs', context['similar_jobs'])
+        context['similar_jobs'] = Job.objects.filter(country=object.country, place=object.place, skill__name__in=skill).distinct().exclude(slug=slug)
 
         try:
             applicant = JobApplicant.objects.get(user=user)
@@ -206,7 +203,7 @@ def skillSearch(request):
             term = request.GET.get("term")
             list_queryset = Skill.objects.filter(name__icontains=term)
             skills_list = [{"id": skill.id, "label": skill.name} for skill in list_queryset]
-
+            print(skills_list)
             return JsonResponse(skills_list, safe=False)
 def search_result(request):
     salary = request.GET.get("salary", None)

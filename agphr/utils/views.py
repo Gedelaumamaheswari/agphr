@@ -14,13 +14,13 @@ class RootView(RedirectView):
                 next_url = 'super_admin:super_admin_analytics'
             elif user_type == User.EMPLOYER:
                 next_url = 'employer:employer_analytics'
-            else:
-                next_url = 'applicant:applicant_analytics'
+            elif user_type == User.APPLICANT_USER:
+                next_url = 'applicant:applicant_profile'
         else:
-            next_url = 'users:home'
+            next_url = 'job:job_list'
 
         try:
             return reverse(next_url)
         except Exception as e:
             print(f"Error resolving URL: {e}")
-            return reverse('users:home')
+            return reverse('job:job_list')
