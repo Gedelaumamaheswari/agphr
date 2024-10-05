@@ -1,0 +1,411 @@
+{% load static humanize %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+
+
+<style>
+    .ui-autocomplete {
+      max-height: 400px;
+      overflow-y: auto;
+      /* prevent horizontal scrollbar */
+      overflow-x: hidden;
+      /* add padding to account for vertical scrollbar */
+      padding-right: 20px;
+  }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="topnav container-fluid">
+        <a class="navbar-brand" href="#"><img src="{% static 'images/brand_logo.png' %}" alt="" class="websitelogo"></a>
+        <a class="nav-a nav-link active" style="padding-right: 5px;" aria-current="page" href="#">Home</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="topnav-R collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          
+          <div class="sign-in-container">
+            <a class="nav-a sign_in nav-link" href="#" id="signinBtn">Sign in</a>
+          </div>
+          <!-- Sign-In Form Modal -->
+          <div id="signinModal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+                <h2>Sign In</h2>
+                <form>
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required placeholder="user name"><br><br>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required placeholder="password"><br><br>
+                    <button type="submit" class="signin-submit-button">Submit</button>
+                    <h6 style="margin-top: 5px;">Don't have an account? <a href="register.html">Register Here</a></h6>
+                </form>
+            </div>
+          </div>
+          <a class="nav-a nav-link" href="employee.html">Employers / Post Job</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  
+  <!-- searchbar starts -->
+  <div class="container">
+    <form id="id_search_form">
+      <div class="search-container">
+        <div class="search-bar">
+          <img src="{% static 'images/search.svg' %}" alt="">
+          <input type="text" name="locations" id="id_search" placeholder="Type your skills, job title">
+        </div>
+        <div class="location-input">
+          <img src="{% static 'images/geo-alt-fill.svg' %}" alt="">
+          <input type="text" name="skills" id="id_location" placeholder="Type location">
+          <button class="button-find-jobs" type="submit">Find Jobs</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <!-- searchbar ends -->
+
+  <div class="dropdown-container">
+    <div class="dropdown">
+      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Date posted
+      </a>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#">Last 24 hours</a></li>
+        <li><a class="dropdown-item" href="#">Last 3 days</a></li>
+        <li><a class="dropdown-item" href="#">Last 7 days</a></li>
+        <li><a class="dropdown-item" href="#">Last 14 days</a></li>
+      </ul>
+    </div>
+    
+    <div class="dropdown">
+      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Remote
+      </a>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#">Remote</a></li>
+        <li><a class="dropdown-item" href="#">Hybrid work</a></li>
+      </ul>
+    </div>
+    
+    <div class="dropdown">
+      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Distance
+      </a>      
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#">Exact location only</a></li>
+        <li><a class="dropdown-item" href="#">Within 5 kelometers</a></li>
+        <li><a class="dropdown-item" href="#">Within 10 kelometers</a></li>
+        <li><a class="dropdown-item" href="#">Within 15 kelometers</a></li>
+        <li><a class="dropdown-item" href="#">Within 20 kelometers</a></li>
+        <li><a class="dropdown-item" href="#">Within 25 kelometers</a></li>
+        <li><a class="dropdown-item" href="#">Within 35 kelometers</a></li>
+        <li><a class="dropdown-item" href="#">Within 50 kelometers</a></li>
+        <li><a class="dropdown-item" href="#">Within 100 kelometers</a></li>
+      </ul>
+    </div>
+    
+    <div class="dropdown">
+      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        pay
+      </a>      
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#">₹ 40000+/ month</a></li>
+        <li><a class="dropdown-item" href="#">₹ 50000+/ month</a></li>
+        <li><a class="dropdown-item" href="#">₹ 60000+/ month</a></li>
+        <li><a class="dropdown-item" href="#">₹ 70000+/ month</a></li>
+        <li><a class="dropdown-item" href="#">₹ 80000+/ month</a></li>
+      </ul>
+    </div>
+    
+    <div class="dropdown">
+      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Job type
+      </a>      
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#">Full time</a></li>
+        <li><a class="dropdown-item" href="#">Contract</a></li>
+        <li><a class="dropdown-item" href="#">Temporary</a></li>
+        <li><a class="dropdown-item" href="#">Internship</a></li>
+        <li><a class="dropdown-item" href="#">Fresher</a></li>
+        <li><a class="dropdown-item" href="#">Part-time</a></li>
+      </ul>
+    </div>    
+    
+    <div class="dropdown">
+      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Education Level
+      </a>      
+      
+    </div>
+    
+    
+    <div class="dropdown">
+      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Industry
+      </a>      
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#">Full time</a></li>
+        <li><a class="dropdown-item" href="#">Contract</a></li>
+        <li><a class="dropdown-item" href="#">Temporary</a></li>
+        <li><a class="dropdown-item" href="#">Internship</a></li>
+        <li><a class="dropdown-item" href="#">Fresher</a></li>
+        <li><a class="dropdown-item" href="#">Part-time</a></li>
+      </ul>
+    </div>
+  
+    <div class="dropdown">
+      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Location
+      </a>      
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#">Full time</a></li>
+        <li><a class="dropdown-item" href="#">Contract</a></li>
+        <li><a class="dropdown-item" href="#">Temporary</a></li>
+        <li><a class="dropdown-item" href="#">Internship</a></li>
+        <li><a class="dropdown-item" href="#">Fresher</a></li>
+        <li><a class="dropdown-item" href="#">Part-time</a></li>
+      </ul>
+    </div>
+    <div class="dropdown">
+      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Company
+      </a>      
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#">Full time</a></li>
+        <li><a class="dropdown-item" href="#">Contract</a></li>
+        <li><a class="dropdown-item" href="#">Temporary</a></li>
+        <li><a class="dropdown-item" href="#">Internship</a></li>
+        <li><a class="dropdown-item" href="#">Fresher</a></li>
+        <li><a class="dropdown-item" href="#">Part-time</a></li>
+      </ul>
+    </div>
+      
+      
+    <div class="dropdown">
+      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Job Language
+      </a>      
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#">Full time</a></li>
+        <li><a class="dropdown-item" href="#">Contract</a></li>
+        <li><a class="dropdown-item" href="#">Temporary</a></li>
+        <li><a class="dropdown-item" href="#">Internship</a></li>
+        <li><a class="dropdown-item" href="#">Fresher</a></li>
+        <li><a class="dropdown-item" href="#">Part-time</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="post-container">
+    <ul>
+      <li><a href="">Post your resume</a>- it only take few seconds</li>
+      <li><a href="">Post a job today</a> and connect with quality candidates</li>
+    </ul>
+
+  </div>
+
+  <h3>
+    <ul>
+      <li>
+        <a href="" class="jobs-Recent">Jobs for you</a>
+      </li>
+      <li>
+        <a href="" class="jobs-Recent">Recent searches</a>
+      </li>
+    </ul>   
+  </h3> 
+
+ 
+    
+  
+<hr>
+
+<div class="jobs-container">
+  
+  <div class="jobs-sub-container-1">
+    <div class="header-container">
+      <div class="container-header">
+        jobs based on your activity on AGP
+      </div>
+    </div>
+
+
+    <div id="job-list">
+        {% include 'partial.html' %}
+    </div>
+
+    <div id="load-more-container"class="text-center">
+      {% if page_obj.has_next %}
+          <button id="load-more-btn" class="btn btn-primary btn-sm" data-page="2">Load More</button>
+      {% endif %}
+    </div>
+  </div>
+  
+  <div class="jobs-sub-container-2">
+    <div class="card card-2" id="myCard">
+      <!-- banner and brand image starts -->
+      <div class="card-body" style="background-image: url('{% static "images/card-backgroung-img.png" %}'); color: aliceblue; height: 100px; border-top-left-radius: 10px; border-top-right-radius: 10px;" >
+        <span class="close-btn" onclick="closeCard()">&times;</span>
+        <img src="{% static 'images/card-backgroung-img.png' %}" alt="" class="company-profile-img">
+      </div>
+      <!-- banner and brand image ends -->
+      
+      <!-- card title section starts -->
+      <div class="card-body"style="margin-top: 50px;">
+        <h5 class="card-title">{{job.job_title}}</h5>
+        <h6 class="card-subtitle mb-2 text-body-secondary">{{job.get_company_name}}</h6>
+        <h5>Skills</h5>
+        <p class="card-text">
+          {% for skill in job.get_all_skills  %}
+          <button class="btn btn-secondary btn-sm my-1">{{ skill.name}}</button>
+          {% endfor %}
+        </p>
+        <button class="button-find-jobs" type="submit">Apply now <img src="{% static 'images/box-arrow-up-right.svg' %}" alt=""></button>
+        <a style=" margin-left: 10px; " href="#" class="card-link"><img src="{% static 'images/bookmark.svg' %}" alt="" title="save-icon"></a>
+      </div>
+      <!-- card title section ends -->
+      
+      <!-- card job desctiption and location starts -->
+      <div class="card-3">
+        <div class="card-header">
+          <h4 style="font-weight: bolder;">Location</h4>
+          <h5><img src="{% static 'images/geo-alt-fill.svg' %}" alt=""> {{job.place}}</h5>
+        </div>
+
+        <!-- card job description starts -->
+        <div class="card-content">
+          <h5 style="font-weight: bold;">Full job description</h5>
+          {{job.job_description|safe}}  
+        </div>
+        <!-- card job description ends -->
+      </div>
+      <!-- card job desctiption and location ends -->
+      
+    </div>
+  </div>
+</div>
+
+<footer>
+  <hr>
+  <div class="footer-container">
+    <ul>
+      <li><a href="">Career advice</a></li>
+      <li><a href="">Browse jobs</a></li>
+      <li><a href="">Browse companies</a></li>
+      <li><a href="">Salaries</a></li>
+      <li><a href="">Work at AGP</a></li>
+      <li><a href="">About</a></li>
+      <li><a href="">Help center</a></li>
+    </ul>
+  </div>
+</footer>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js" integrity="sha512-rstIgDs0xPgmG6RX1Aba4KV5cWJbAMcvRCVmglpam9SoHZiUCyQVDdH2LPlxoHtrv17XWblE/V/PP+Tr04hbtA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="{% static 'js/search.js' %}"></script>
+<script>
+
+  document.querySelectorAll('.jobs-Recent').forEach(function(link) {
+      link.addEventListener('click', function(e) {
+          // Remove the 'active' class from all links
+          document.querySelectorAll('.jobs-Recent').forEach(function(l) {
+              l.classList.remove('active');
+          });
+          
+          // Add the 'active' class to the clicked link
+          e.currentTarget.classList.add('active');
+          
+          // Prevent the default behavior (optional, depending on your need)
+          e.preventDefault();
+      });
+  });
+
+  document.addEventListener('click', function(e) {
+      // Check if the click is outside of any link
+      if (!e.target.classList.contains('jobs-Recent')) {
+          // Remove the 'active' class from all links
+          document.querySelectorAll('.jobs-Recent').forEach(function(l) {
+              l.classList.remove('active');
+          });
+      }
+  });
+
+  // Get the modal, button, and close elements
+  const modal = document.getElementById("signinModal");
+  const signinBtn = document.getElementById("signinBtn");
+  const closeBtn = document.getElementsByClassName("close-btn")[0];
+
+  // Show the modal when the button is clicked
+  signinBtn.onclick = function() {
+      modal.style.display = "flex";
+  }
+
+  // Close the modal when the close button is clicked
+  closeBtn.onclick = function() {
+      modal.style.display = "none";
+  }
+
+  // Close the modal when clicking anywhere outside of the modal
+  window.onclick = function(event) {
+      if (event.target == modal) {
+          modal.style.display = "none";
+      }
+  }
+  // Function to close the card
+  function closeCard() {
+          var card = document.getElementById("myCard");
+          card.style.display = "none";
+      }
+
+  // Loading      
+  document.addEventListener('DOMContentLoaded', function () {
+      const loadMoreBtn = document.getElementById('load-more-btn');
+      loadMoreBtn.addEventListener('click', function () {
+          const page = this.getAttribute('data-page');
+          loadMoreJobs(page);
+      });
+
+      function loadMoreJobs(page) {
+          const url = `?page=${page}`;
+          fetch(url, {
+              method: 'GET',
+              headers: {
+                  'X-Requested-With': 'XMLHttpRequest'  // Make sure to send AJAX request
+              }
+          })
+          .then(response => response.json())
+          .then(data => {
+              // Append new jobs to the list
+              const jobList = document.getElementById('job-list');
+              jobList.innerHTML += data.jobs_html;
+              
+              // Update "Load More" button
+              if (data.has_next) {
+                  const newPage = parseInt(page) + 1;
+                  loadMoreBtn.setAttribute('data-page', newPage);
+              } else {
+                  loadMoreBtn.remove();
+              }
+          })
+          .catch(error => console.error('Error loading more jobs:', error));
+      }
+  });
+</script>
+
+</body>
+</html>

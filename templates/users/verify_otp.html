@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-4 offset-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="text-center">Verify your mobile</h2>
+                        <form method="post" class="needs-otp-validation" novalidate>
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="id_otp" class="form-label">Otp</label>
+                                <input type="text" class="form-control" id="id_otp" name="otp_code" placeholder="Enter your otp">
+                                <div class="invalid-feedback"></div>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100 mt-2">Submit</button>
+                            <p class="mt-2 text-center">OR login with</p>
+                            <a href="" class="btn w-100 text-white" style="background-color:#ea4335;">
+                                <img src="{% static 'gmail.png' %}" height="20px">
+                            </a>
+                            <a href="" class="btn mt-2 w-100 text-white" style="background-color:#1877f2;">
+                                <i class="fa-brands fa-facebook fa-lg"></i>
+                            </a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'validate_otp.js' %}"></script>
+{% endblock extra_js %}

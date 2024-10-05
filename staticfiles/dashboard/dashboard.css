@@ -1,0 +1,27 @@
+.sidebar{
+    min-height: 750px;
+}
+@media (min-width: 768px) {
+  .sidebar .offcanvas-lg {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 48px;
+  }
+}
+.sidebar .nav-link {
+  font-size: .875rem;
+  font-weight: 500;
+}
+
+.sidebar .nav-link.active {
+  /* color: white; */
+  border: 1px solid var(--primary-color);
+  border-radius: 10px;
+  margin: 1px;
+}
+
+.sidebar .nav-link:hover {
+  color: white;
+  background-color: var(--secondary-color);
+  border-radius: 10px;
+}

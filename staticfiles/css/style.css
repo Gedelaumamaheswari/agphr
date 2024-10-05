@@ -1,0 +1,41 @@
+/* Define CSS variables */
+:root {
+  --primary-color: #124076;
+  --secondary-color: #7F9F80;
+  --accent-color: #F9E897;
+  --background-color: #FFC374 ;
+  --danger-color: hsl(11, 77%, 52%);
+  --font-size: 16px;
+}
+.bg-primary, .btn-primary{
+  background-color: var(--primary-color)!important;
+}
+.bg-secondary, .btn-secondary{
+  background-color: var(--secondary-color)!important;
+}
+.bg-danger, .btn-danger{
+  background-color: var(--danger-color)!important;
+}
+.border-primary {
+  border-color: var(--primary-color) !important;
+}
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+  /* font-size: 1.2rem; */
+}
+
+/* body{
+  background-color: var(--background-color);
+} */
+
+/* .card{
+  background-color: var(--accent-color);
+  box-shadow: 4px 4px 10px 4px ;
+} */
+
+.btn-primary{
+  background-color: var(--primary-color);
+}

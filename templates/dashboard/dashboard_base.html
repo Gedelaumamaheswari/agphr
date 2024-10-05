@@ -1,0 +1,47 @@
+
+{% load static %}
+<!doctype html>
+<html lang="en" data-bs-theme="auto">
+  <head>
+    {% include "template_blocks/header.html" %}
+    <link href="{% static 'dashboard/dashboard.css' %}" rel="stylesheet">
+    {% block dashboard_extra_css %}
+    {% endblock dashboard_extra_css %}
+  </head>
+
+  <body>
+    {% include "template_blocks/navbar.html" %}
+    <div class="container-fluid">
+      <div class="row">
+        <div class="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary">
+          <div class="offcanvas-md offcanvas-end bg-body-tertiary" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="sidebarMenuLabel">Company name</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
+              
+              {% if request.user.user_type == "Super Admin" %}
+                {% include "dashboard/partials/super_admin_sidebar.html" %}
+              {% elif request.user.user_type == "Employer" %}
+                {% include "dashboard/partials/employer_sidebar.html" %}
+              {% elif request.user.user_type == "Applicant User" %}
+                {% include "dashboard/partials/applicant_sidebar.html" %}
+                {% endif %}
+              
+            </div>
+          </div>
+        </div>
+
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+          {% include "template_blocks/alert.html" %}
+          {% block dashboard_content %}
+          {% endblock dashboard_content %}
+        </main>
+      </div>
+    </div>
+    {% include "template_blocks/javascript.html" %}
+    {% block dashboard_extra_js %}
+    {% endblock dashboard_extra_js %}
+  </body>
+</html>

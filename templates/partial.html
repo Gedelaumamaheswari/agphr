@@ -1,0 +1,13 @@
+{% load humanize %}
+{% for job in jobs %}
+    <div class="card card-1">
+      <div class="card-body">
+        <h5 class="card-title"><a href="?job_title={{job.slug}}">{{job.job_title}}</a></h5>
+        <h6 class="card-subtitle mb-2 text-body-secondary">{{job.place}}</h6>
+        <h4 class="card-subtitle mb-2 text-body-secondary">{{job.employement_type}}</h4>
+        <p class="card-text">{{ job.job_description|safe|truncatechars_html:500 }}</p>
+        <a href="#" class="card-link">Card link</a>
+        <p href="#" class="card-link float-end">{{job.uploaded_at|timesince}}</p>
+      </div>
+    </div>
+{% endfor %}
