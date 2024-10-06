@@ -7,7 +7,7 @@
     </div>
     <div class="card-body">
         <div id="error-messages" class="alert alert-danger" style="display: none;"></div>
-        <form method="post" novalidate enctype="multipart/form-data">
+        <form method="post" novalidate enctype="multipart/form-data" class="needs-validation">
             {% csrf_token %}
             {{ applicant_user_form|crispy }}
             {{ applicant_profile_form|crispy }}

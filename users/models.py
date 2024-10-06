@@ -199,6 +199,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     country = models.CharField(
         max_length=100,
         choices=COUNTRY_CHOICES,
+        default=INDIA,
         blank=True,
         null=True,
         help_text="Your current country.",

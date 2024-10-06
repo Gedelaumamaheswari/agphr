@@ -16,6 +16,10 @@ import logging
 def applicant_analytics_view(request,):
   return render(request, 'dashboard/applicant/applicant_analytics.html')
 
+@allow_access_to([User.APPLICANT_USER])
+def applied_job_view(request,):
+  return render(request, 'dashboard/applicant/applied_job.html')
+
 def apply_job(request, slug):
     job = get_object_or_404(Job, slug=slug)
     user=request.user

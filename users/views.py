@@ -14,6 +14,8 @@ from .functions.otp_utils import (
     SESSION_REGISTRATION_KEY
 )
 
+from applicant.models import Applicant
+
 class RegisterView(View):
     template_name = 'users/register.html'
 
@@ -53,6 +55,54 @@ class RegisterView(View):
             # ==================================================================================
         else:
             return render(request, self.template_name, {'form': form})
+
+def register_view(request):
+    if request.method=="POST":
+        print(request.POST, request.FILES)
+        form = UserRegistrationForm(request.POST, request.FILES)  # Make sure to handle file uploads
+        if form.is_valid():
+            # Extract data from the form
+
+            user_data = {
+                'mobile_number': form.cleaned_data.get('mobile'),
+                'password': form.cleaned_data.get('password1'),
+                'first_name': form.cleaned_data.get('first_name'),
+                'last_name': form.cleaned_data.get('last_name'),
+                'date_of_birth': form.cleaned_data.get('date_of_birth'),
+                'address_line_1': form.cleaned_data.get('address_line_1'),
+                'city': form.cleaned_data.get('city'),
+                'state': form.cleaned_data.get('state'),
+                'postal_code': form.cleaned_data.get('postal_code'),
+                'resume': form.cleaned_data.get('resume'),
+            }
+            print(user_data)
+            # Create the user
+            user = User.objects.create_user(
+                mobile=user_data['mobile_number'],
+            )
+            user.first_name = user_data['first_name']
+            user.last_name = user_data['last_name']
+            user.date_of_birth = user_data['date_of_birth']
+            user.address_line_1 = user_data['address_line_1']
+            user.city = user_data['city']
+            user.state = user_data['state']
+            user.postal_code = user_data['postal_code']  
+            user.set_password(user_data['password'])
+            user.save()
+            resume = user_data['resume']
+            Applicant.objects.create(user=user, resume=resume)
+            messages.success(request, "Your account has been created successfully.")
+            return redirect('redirect_url')
+        else:
+            print(form.errors)
+            messages.warning(request, "invalid form")
+            return render(request, 'users/register.html', {'form': form})
+    else:
+        if request.user.is_authenticated:
+            raise Http404('You are already logged in!')
+        
+        form = UserRegistrationForm()
+    return render(request, 'users/register.html', {'form': form})
 
 class OTPVerificationView(View):
     template_name = 'users/verify_otp.html'

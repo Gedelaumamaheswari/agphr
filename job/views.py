@@ -203,8 +203,8 @@ def skillSearch(request):
             term = request.GET.get("term")
             list_queryset = Skill.objects.filter(name__icontains=term)
             skills_list = [{"id": skill.id, "label": skill.name} for skill in list_queryset]
-            print(skills_list)
             return JsonResponse(skills_list, safe=False)
+        
 def search_result(request):
     salary = request.GET.get("salary", None)
     freshness = request.GET.get("freshness", None)

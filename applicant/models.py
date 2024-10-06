@@ -146,10 +146,55 @@ class Applicant(models.Model):
         verbose_name = 'Applicant Profile'
         verbose_name_plural = 'Applicant Profiles'
 
+    @property
+    def get_first_name(self):
+        return self.user.first_name
+    
+    @property
+    def get_last_name(self):
+        return self.user.last_name
+    
+    @property
     def get_full_name(self):
         return f'{self.user.first_name} {self.user.last_name}'
+    
+    @property
+    def get_email(self):
+        return self.user.email
+    
+    @property
+    def get_mobile(self):
+        return self.user.mobile
+    
+    @property
+    def get_dob(self):
+        return self.user.date_of_birth
+    
+    @property
+    def get_address_line_1(self):
+        return self.user.address_line_1
+    
+    @property
+    def get_address_line_2(self):
+        return self.user.address_line_2
+    
+    @property
+    def get_city(self):
+        return self.user.city
+    
+    @property
+    def get_state(self):
+        return self.user.state
+    
+    @property
+    def get_country(self):
+        return self.user.country
+    
+    @property
+    def get_postal_code(self):
+        return self.user.postal_code
 
-    def get_skills_list(self):
+    def get_skills(self):
         return ', '.join(skill.name for skill in self.skills.all())
 
     def clean(self):

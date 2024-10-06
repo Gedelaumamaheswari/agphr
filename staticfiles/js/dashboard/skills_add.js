@@ -5,7 +5,7 @@ $( function() {
     $(this).parent('li').remove(); //Remove field html                      
   }); 
   $( "#id_skills1" ).autocomplete({
-    source: '/job/skillSearch/',
+    source: '/skillSearch/',
     select: function( event, ui ) {  
       let fieldHTML1 = `<li class="list-group-item d-flex justify-content-between align-items-center"> 
                           <input type="hidden" id="${ui.item.label}" name="skills" value="${ui.item.id}">

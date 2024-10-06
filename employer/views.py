@@ -43,7 +43,6 @@ def employer_create_job_view(request):
         skill_ids = request.POST.getlist("skills")
         if form.is_valid():
             try:
-                10/'10'
                 with transaction.atomic():
                     publish = form.cleaned_data.get('publish')
                     salary = form.cleaned_data.get('salary')

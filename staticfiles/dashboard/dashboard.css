@@ -20,6 +20,11 @@
   margin: 1px;
 }
 
+.sidebar .nav-link {
+  border: 1px solid var(--secondary-color);
+  border-radius: 10px;
+  margin-bottom: 2px;
+}
 .sidebar .nav-link:hover {
   color: white;
   background-color: var(--secondary-color);

@@ -1,22 +1,50 @@
+{% load common_tags %}
 <ul class="nav flex-column">
     <li class="nav-item">
-        <a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" href="{% url 'employer:employer_analytics' %}">
+        <a class="nav-link 
+        d-flex 
+        align-items-center 
+        gap-2 
+        {% is_active 'employer_analytics' %}" 
+        aria-current="page" 
+        href="{% url 'employer:employer_analytics' %}"
+        >
         Analytics
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" href="{% url 'employer:employer_create_job' %}">
-            Create Job
+        <a class="nav-link 
+        d-flex 
+        align-items-center 
+        gap-2 
+        {% is_active 'employer_create_job' %}" 
+        aria-current="page" 
+        href="{% url 'employer:employer_create_job' %}"
+        >
+        Create Job
         </a>
     </li> 
     <li class="nav-item">
-        <a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" href="{% url 'employer:employer_job_list' %}">
-            My Job Lists
+        <a class="nav-link 
+        d-flex 
+        align-items-center 
+        gap-2 
+        {% is_active 'employer_job_list' 'employer_job_detail' 'employer_update_job' %}" 
+        aria-current="page" 
+        href="{% url 'employer:employer_job_list' %}"
+        >
+        My Job Lists
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" href="{% url 'employer:employer_applicant_list' %}">
-            Applicant Lists
+        <a class="nav-link d-flex 
+        align-items-center 
+        gap-2 
+        {% is_active 'employer_applicant_list' %}" 
+        aria-current="page" 
+        href="{% url 'employer:employer_applicant_list' %}"
+        >
+        Applicant Lists
         </a>
     </li>
 </ul>

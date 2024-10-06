@@ -1,9 +1,24 @@
+{% load common_tags %}
 <ul class="nav flex-column">
     <li class="nav-item">
-        <a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" href="{% url 'applicant:applicant_profile' %}">
-            My Profile
+        <a class="nav-link 
+        d-flex 
+        align-items-center 
+        gap-2 
+        {% is_active 'applicant_profile' %}" 
+        aria-current="page" 
+        href="{% url 'applicant:applicant_profile' %}"
+        >
+        My Profile
         </a>
-        <a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" href="{% url 'applicant:applicant_analytics' %}">
+        <a class="nav-link 
+        d-flex 
+        align-items-center 
+        gap-2 
+        {% is_active 'applied_job' %}" 
+        aria-current="page" 
+        href="{% url 'applicant:applied_job' %}"
+        >
             Applied Jobs
         </a> 
     </li>
