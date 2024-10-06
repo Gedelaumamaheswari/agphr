@@ -6,3 +6,4 @@ django-hitcount==1.3.5
 xlwt==1.3.0
 django-crispy-forms==2.3
 crispy-bootstrap5==2024.2
+mysqlclient==2.2.4

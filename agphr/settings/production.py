@@ -15,8 +15,8 @@ sentry_sdk.init(
 )
 
 ALLOWED_HOSTS = [
-    'dev.agphr.in',
-    'www.dev.agphr.in',
+    'www.agphr.com',
+    'https://agphr.com/',
 ]
 DEBUG=False
 DATABASES = {
@@ -33,6 +33,6 @@ DATABASES = {
 SESSION_COOKIE_SECURE = True
 SESSION_COOKIE_HTTPONLY = True
 
-STATIC_ROOT = '/home/agp/public_html/staticfiles/'
+STATIC_ROOT = '/home/agphr/dilip/public_html/static/'
 MEDIA_URL = '/media/'
-MEDIA_ROOT = '/home/agp/public_html/media/'
+MEDIA_ROOT = '/home/agphr/dilip/public_html/media/'
