@@ -6,6 +6,7 @@ from agphr.utils.decorators import allow_access_to
 from users.models import User
 from job.forms import  AddSkill
 from job.models import Skill
+from applicant.models import Applicant
 
 @allow_access_to([User.SUPER_ADMIN])
 def super_admin_analytics_view(request):
@@ -29,7 +30,8 @@ def super_admin_employeer_detail_view(request, slug):
 
 @allow_access_to([User.SUPER_ADMIN])
 def super_admin_applicant_list_view(request):
-    pass
+    applicants = Applicant.objects.all()
+    return render(request, 'dashboard/super_admin/super_admin_applicant_list.html', {'applicants': applicants})
 
 @allow_access_to([User.SUPER_ADMIN])
 def super_admin_applicant_detail_view(request):

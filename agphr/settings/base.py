@@ -53,6 +53,7 @@ LOCAL_APPS = [
     'employer',
     'applicant',
     'job',
+    'common'
 ]
 # https://docs.djangoproject.com/en/5.0/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
